@@ -24,5 +24,5 @@
 2. Write the Big-O notation.
 
 ```
-Merge Sort--> O(nlogn)
+Merge Sort --> O(nlogn)
 ```
