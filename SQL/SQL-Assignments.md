@@ -212,7 +212,87 @@ LIMIT 1;
 ```
 ---
 
+- Assignment 8
 
+1. Let's create a table in your test database with employee name column information id(INTEGER), name VARCHAR(50), birthday DATE, email VARCHAR(100).
+
+```
+CREATE TABLE employee(
+	id INTEGER,
+	name VARCHAR(50),
+	birthday DATE,
+	email VARCHAR(100)
+);
+```
+
+2. Let's add 50 pieces of data to the employee table we created using the 'Mockaroo' service. (three examples)
+```
+insert into employee (id, name, email, birthday) values (1, 'Elizabeth Jessen', 'ejessen1@xinhuanet.com', '1984-07-27');
+insert into employee (id, name, email, birthday) values (2, 'Mahala Bleier', 'mbleier0@artisteer.com', '1967-12-16');
+insert into employee (id, name, email, birthday) values (3, 'Lorenzo Marchington', 'lmarchington9@utexas.edu', '1975-05-01');
+```
+3. Let's do 5 UPDATE operations that will update the other columns according to each of the columns.
+
+```
+UPDATE employee                                                       
+SET name = 'Emmett Robert',
+	email = 'emmett@robert.com',
+	birthday = '1989-04-05'
+Where id = 25
+RETURNING *;
+
+UPDATE employee
+SET name = 'Brian Lorry',
+	id = '11',
+	email = 'brian@lorry.com'
+WHERE birthday = '1992-11-20'
+RETURNING *;
+
+UPDATE employee
+SET id = 88,
+	birthday = '1996-10-04',
+	email = 'robert@berkeley.com'
+WHERE name = 'Robert Berkeley'
+RETURNING *;
+
+UPDATE employee
+SET name = 'Lucius Malfoy',
+	birthday = '1994-05-11',
+	email = 'lucius@malfoy.edu'
+WHERE id = 67
+RETURNING *;
+
+UPDATE employee
+SET id = 103,
+	name = 'Zachary Allson',
+	birthday = '1988-08-11'
+WHERE email = 'zachary@allson.edu'
+RETURNING *;
+```
+4. Let's do 5 DELETE operations that will delete the relevant row according to each of the columns.
+
+```
+DELETE FROM employee
+WHERE id = 88
+RETURNING *;
+
+DELETE FROM employee
+WHERE name = 'Ferdinand Cornwall'
+RETURNING *;
+
+DELETE FROM employee
+WHERE birthday = '1982-07-11'
+RETURNING *;
+
+DELETE FROM employee
+WHERE email = 'abriggg@huffingtonpost.com'
+RETURNING *;
+
+DELETE FROM employee
+WHERE id = 247
+RETURNING *;
+```
+---
 
 
 
