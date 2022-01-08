@@ -294,5 +294,147 @@ RETURNING *;
 ```
 ---
 
+- Assignment 9
+
+1. Write the INNER JOIN query where we can see the city and country names in the city table and the country table together.
+
+```
+SELECT t1.city, t2.country
+FROM city AS t1
+INNER JOIN country AS t2
+ON t1.country_id = t2.country_id;
+```
+
+2. Write the INNER JOIN query where we can see the customer table and the payment_id in the payment table and the first_name and last_name names in the customer table together.
+
+```
+SELECT t1.payment_id, t2.first_name, t2.last_name  
+FROM payment AS t1
+INNER JOIN customer AS t2
+ON t1.customer_id = t2.customer_id;
+```
+3. Write the INNER JOIN query where we can see the names of the customer table and the rental_id in the rental table and the first_name and last_name in the customer table together.
+```
+SELECT t1.first_name, t1.last_name, t2.rental_id
+FROM customer AS t1
+INNER JOIN rental AS t2
+ON t1.customer_id = t2.customer_id;
+```
+---
+
+- Assignment 10
+
+1. Write the LEFT JOIN query where we can see the city and country names in the city table and the country table together.
+
+```
+SELECT t1.country, t2.city
+FROM country AS t1
+LEFT JOIN city AS t2
+ON t1.country_id = t2.country_id
+```
+
+2. Write the RIGHT JOIN query where we can see the customer table and the payment_id in the payment table and the first_name and last_name names in the customer table together.
+
+```
+SELECT t1.first_name , t1.last_name, t2.payment_id
+FROM customer AS t1
+RIGHT JOIN payment AS t2
+ON t1.customer_id = t2.customer_id;
+```
+3. Write the FULL JOIN query where we can see the names of the rental_id in the customer table and the rental table, and the names of first_name and last_name in the customer table together.
+```
+SELECT t1.first_name , t1.last_name, t2.rental_id
+FROM customer AS t1
+FULL JOIN rental AS t2
+ON t1.customer_id = t2.customer_id;
+```
+---
+
+
+- Assignment 11
+
+1. Let's sort all the data for the first_name columns in the actor and customer tables.
+
+```
+(SELECT first_name FROM actor)
+UNION
+(SELECT first_name FROM customer);
+```
+
+2. Let's sort the intersecting data for the first_name columns in the actor and customer tables.
+
+```
+(SELECT first_name FROM actor)
+INTERSECT
+(SELECT first_name FROM customer);
+```
+3. For the first_name columns in the actor and customer tables, let's sort the data in the first table but not in the second table.
+```
+(SELECT first_name FROM actor)
+EXCEPT
+(SELECT first_name FROM customer);
+```
+4. Let's also do the first 3 queries for repeating data.
+```
+--UNON
+(SELECT first_name FROM actor)
+UNION ALL
+(SELECT first_name FROM customer);
+
+--INTERSECT
+(SELECT first_name FROM actor)
+INTERSECT ALL
+(SELECT first_name FROM customer);
+
+--EXCEPT
+(SELECT first_name FROM actor)
+EXCEPT ALL
+(SELECT first_name FROM customer);
+```
+---
+
+- Assignment 12
+
+1. In the film table, the film length is shown in the length column. How many films are longer than the average film length?
+
+```
+SELECT COUNT(*) FROM film
+WHERE length > (SELECT AVG(length) FROM film)
+```
+
+2. How many films have the highest rental_rate in the film table?
+
+```
+SELECT COUNT(*) FROM film
+WHERE rental_rate = (SELECT MAX(rental_rate) FROM film)
+```
+3. In the movie table, list the movies with the lowest rental_rate and the lowest replacement_cost values.
+```
+SELECT title FROM film
+WHERE rental_rate = (SELECT MIN(rental_rate) FROM film) AND replacement_cost = (SELECT MIN(replacement_cost) FROM film)
+```
+4. Rank the customers who make the most purchases in the payment table.
+```
+- 1
+SELECT first_name, last_name FROM customer
+WHERE customer.customer_id = ANY
+(SELECT customer_id FROM payment
+GROUP BY customer_id
+ORDER BY COUNT(*) DESC
+LIMIT 5);
+
+- 2
+SELECT DISTINCT(customer.customer_id), first_name, last_name FROM customer
+INNER JOIN payment
+ON customer.customer_id = payment.customer_id
+WHERE customer.customer_id IN (SELECT customer_id FROM payment
+GROUP BY customer_id
+ORDER BY COUNT(*) DESC
+LIMIT 5);
+
+```
+---
+
+
 
 
