@@ -120,10 +120,97 @@ SELECT COUNT(*) FROM city
 WHERE city ILIKE '%r';
 ```
 ---
+- Assignment 5
 
+1. List the 5 longest (length) films in the film table and the film title (title) ends with the 'n' character.
 
+```
+SELECT title, length FROM film
+WHERE title LIKE '%n'
+ORDER BY length DESC, title ASC
+LIMIT 5;
+```
 
+2. List the second 5 shortest (length) films in the film table and the film title (title) ends with the 'n' character.
 
+```
+SELECT title, length FROM film
+WHERE title LIKE '%n'
+ORDER BY length ASC, title ASC
+OFFSET 5
+LIMIT 5;
+```
+3. Sort the first 4 data, provided that store_id is 1 in descending order according to the last_name column in the Customer table.
+
+```
+SELECT * FROM customer
+WHERE store_id = 1
+ORDER BY last_name DESC
+LIMIT 4;
+```
+---
+
+- Assignment 6
+
+1. What is the average of the values in the rental_rate column in the film table?
+
+```
+SELECT ROUND(AVG(length),4) AS Average FROM film;
+```
+
+2. How many of the films in the film table start with the 'C' character?
+
+```
+SELECT COUNT(*) FROM film
+WHERE title LIKE 'C%'
+```
+3. Among the films in the movie table, how many minutes is the longest (length) film with a rental_rate equal to 0.99?
+
+```
+SELECT MAX(length) FROM film
+WHERE rental_rate = 0.99
+```
+4. How many different replacement_cost values are there for the films in the film table that are longer than 150 minutes?
+
+```
+SELECT COUNT(DISTINCT replacement_cost) FROM film
+WHERE length > 150
+```
+---
+
+- Assignment 7
+
+1. Group the movies in the movie table according to their rating values.
+
+```
+SELECT rating, COUNT(*) FROM film
+GROUP BY rating;
+```
+
+2. When we group the films in the film table according to the replacement_cost column, list the replacement_cost value with more than 50 films.
+
+```
+SELECT replacement_cost, COUNT(*) FROM film
+GROUP BY replacement_cost
+HAVING COUNT(*) > 50
+ORDER BY replacement_cost;
+```
+3. What are the customer numbers corresponding to the store_id values in the Customer table?
+
+```
+SELECT store_id, COUNT(*) FROM customer
+GROUP BY store_id
+ORDER BY store_id;
+```
+4. After grouping the city data in the City table according to the country_id column, share the country_id information and the number of cities that contain the highest number of cities.
+
+```
+SELECT country_id, COUNT(*) FROM city
+GROUP BY country_id
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+```
+---
 
 
 
